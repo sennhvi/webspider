@@ -48,6 +48,49 @@ sudo pip3 install tesserocr pillow
 # ---
 
 # 3. installation of database library
+sudo apt-get update
+sudo apt-get install -y mysql-server mysql-client
+
+# mongodb https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+# start mongodb
+sudo service mongod start
+# verify its status
+cat /var/log/mongodb/mongod.log
+# stop mongodb
+sudo service mongod stop
+# restart mongodb
+sudo service mongod restart
+# use mongodb shell, use ctrl+c to quit
+mongo --host 127.0.0.1:27017
+# then:
+# > use admin
+# > db.createUser({user:'admin', pwd:'admin123', roles:[{role:'root', db:'admin'}]})
+# modify mongodb configuration file in /etc/mongod.conf
+# net:
+#   port: 27017
+#   bindIp: 0.0.0.0
+# security:
+#   authorization: enabled
+# then restart mongodb service
+# $ sudo service mongod restart
+# download robo 3T for visualization in https://robomongo.org/download
+
+# redis, based on memory, effective non-relational db
+sudo apt-get install -y redis-server
+# verify installation
+# $ redis-cli
+# > set 'name' 'sennhvi'
+# > get 'name'
+# modify redis configuration file in /etc/redis/redis.conf
+# comment bind 127.0.0.1 to disable it
+# uncomment requirepass foobared and modify it to requirepass YOURPASSWORD
+# then restart redis
+# $ sudo /etc/init.d/redis-server restart
+
 
 
 # 4. installation of storage library
