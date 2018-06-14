@@ -92,11 +92,29 @@ sudo apt-get install -y redis-server
 # $ sudo /etc/init.d/redis-server restart
 
 
-
 # 4. installation of storage library
+# pymysql
+sudo pip3 install pymysql
+# pymongo
+sudo pip3 install pymongo
+# redis-py
+sudo pip3 install redis
+# redisdump based on ruby
+sudo apt-get install -y ruby-full
+sudo gem install redis-dump
+# verify installation redis-dump / redis-load
 
 
 # 5. installation of web library
+sudo pip3 install flask
+# verify installation:
+# from flask import Flask
+# app = Flask(__name__)
+# @app.route("/")
+# def hello():
+#     return "Hello World"
+# if __name__ == "__main__":
+#     app.run()
 
 
 # 6. installation of app crawler library
