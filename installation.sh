@@ -1,4 +1,6 @@
 #!/bin/bash
+
+
 # 1. installation of request library
 # requests. blocking io http request library.
 sudo pip3 install requests
@@ -27,6 +29,7 @@ sudo mv chromedriver /usr/bin/
 sudo pip3 install aiohttp cchardet aiodns
 # ---
 
+
 # 2. installation of parser library
 # lxml module. support for parsing html/xml and support XPath parsing method.
 sudo pip3 install lxml
@@ -46,6 +49,7 @@ sudo pip3 install tesserocr pillow
 # image = Image.open('image.png')
 # print(tesserocr.image_to_text(image))
 # ---
+
 
 # 3. installation of database library
 sudo apt-get update
@@ -118,9 +122,22 @@ sudo pip3 install flask
 
 
 # 6. installation of app crawler library
+# sniffer tools: Charles, mitmproxy, mitmdump, Appium
+# TBD
 
 
 # 7. installation of crawler framework
+# before installing pyspider, you need to install phantomJS
+sudo pip3 install pyspider
+# verification
+pyspider all
+# scrapy framework: dependencies-twisted,lxml,pyopenssl
+sudo pip3 install pyopenssl
+sudo pip3 install twisted
+sudo apt-get install -y build-essential python3-dev libssl-dev libffi-dev libxml2 libxml2-dev libxslt1-dev zlib1g-dev
+sudo pip3 install scrapy
+
+
 
 
 # 8. installation of deployment library
