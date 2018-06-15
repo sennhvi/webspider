@@ -131,13 +131,84 @@ sudo pip3 install flask
 sudo pip3 install pyspider
 # verification
 pyspider all
+
 # scrapy framework: dependencies-twisted,lxml,pyopenssl
 sudo pip3 install pyopenssl
 sudo pip3 install twisted
 sudo apt-get install -y build-essential python3-dev libssl-dev libffi-dev libxml2 libxml2-dev libxslt1-dev zlib1g-dev
 sudo pip3 install scrapy
 
+# scrapy-splash support js render, you need to install docker first, then python module
+sudo pip3 install scrapy-splash
 
+# scrapy-redis
+sudo pip3 install scrapy-redis
 
 
 # 8. installation of deployment library
+
+# docker
+# check http://splash.readthedocs.io/en/latest/install.html for more information about installing docker
+cd ~/Downloads/software/
+sudo apt-get install -y docker
+sudo apt install -y docker.io
+# for better speed, use:  curl --sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -
+# pull image and test, all pulled images can be found in /var/lib/docker/image/aufs/repositories.json
+sudo docker pull scrapinghub/splash
+# verification:
+# $ sudo docker run -p 8050:8050 scrapinghub/splash
+
+# scrapyd, a tool to deploy and run scrapy project
+sudo pip3 install scrapyd
+sudo mkdir /etc/scrapyd # and vim /etc/scrapyd/scrapyd.conf
+# refer to http://scrapyd.readthedocs.io/en/latest/config.html for configuration file details
+# and change max_proc_per_cpu = 4 to 10, bind_address = 127.0.0.1 to 0.0.0.0
+# to run scrapyd in daemon: (use supervisor for better experience)
+# $ scrapyd > /dev/null & or $ scrapyd > ~/log/scrapyd/scrapyd.log &
+
+# nginx
+sudo apt-get install nginx
+# modify nginx configuration file:
+# add text below to nginx.conf file in http section
+#    server {
+#           listen 6801;
+#           location / {
+#               proxy_pass      http://127.0.0.1:6800/;
+#               auth_basic      "Restricted";
+#               auth_basic_user_file    /etc/nginx/conf.d/.htpasswd;
+#           }
+#   }
+# to use htpasswd to generate id and password, you need to install apache2-utils:
+sudo apt install apache2-utils
+cd /etc/nginx/conf.d/
+sudo htpasswd -c .htpasswd admin # create a file .htpasswd in working directory and admin as user name
+# then you can restart nginx service by typing:
+sudo nginx -s reload
+# verification:
+# go to website localhost:6801 and input your username and password, then nginx site shows,
+# which means we can use reverse proxy in nginx to enable access authentication
+# once scrapyd runs, go to localhost:6801, it leads to scrapyd homepage rather than nginx homepage
+
+# scrapyd-client, a tool to help deploying scrapy code to remote scrapyd(pack code to egg file and upload it)
+sudo pip3 install scrapyd-client
+# use scrapyd-deploy to verify installation
+# $ scrapyd-deploy -h
+
+# after installing scrapyd, we can use api to access status of all scrapy tasks when scrapyd runs
+# $ sudo curl http://localhost:6800/listproject.json
+# scrapyd-api, a tool for easy access to status of all scrapy jobs
+sudo pip3 install python-scrapyd-api
+# verify installation, make sure scrapyd is running
+# from scrapyd_api import ScrapydAPI
+# scrapyd = ScrapydAPI('http://localhost:6800')
+# print(scrapyd.list_projects())
+
+# scrapyrt, a tool to schedule http interface for scrapy, we can request a http interface to schedule scrapy jobs
+# rather than run scrapy commands. It's suggested to be used in non-distributed jobs for its lightweight.
+sudo pip3 install scrapyrt
+# you can verify installation by running $ scrapyrt in any scrapy project and it starts a http service in port 9080
+# install using docker
+# docker run -p 9080:9080 -tid -v /home/sennhvi/scrapy_project:/scrapyrt/project scrapinghub/scrapyrt
+
+# gerapy module, a distributed management module, verify installation by import it
+sudo pip3 install gerapy
