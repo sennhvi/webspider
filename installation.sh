@@ -27,7 +27,7 @@ sudo mv chromedriver /usr/bin/
 # aiohttp. asynchronized io http request library.
 # cchardet for charset encoding detection, aiodns for accelerating dns parse
 sudo pip3 install aiohttp cchardet aiodns
-# ---
+echo '-----------'
 
 
 # 2. installation of parser library
@@ -48,7 +48,7 @@ sudo pip3 install tesserocr pillow
 # from PIL import Image
 # image = Image.open('image.png')
 # print(tesserocr.image_to_text(image))
-# ---
+echo '-----------'
 
 
 # 3. installation of database library
@@ -94,6 +94,7 @@ sudo apt-get install -y redis-server
 # uncomment requirepass foobared and modify it to requirepass YOURPASSWORD
 # then restart redis
 # $ sudo /etc/init.d/redis-server restart
+echo '-----------'
 
 
 # 4. installation of storage library
@@ -107,6 +108,7 @@ sudo pip3 install redis
 sudo apt-get install -y ruby-full
 sudo gem install redis-dump
 # verify installation redis-dump / redis-load
+echo '-----------'
 
 
 # 5. installation of web library
@@ -119,11 +121,13 @@ sudo pip3 install flask
 #     return "Hello World"
 # if __name__ == "__main__":
 #     app.run()
+echo '-----------'
 
 
 # 6. installation of app crawler library
 # sniffer tools: Charles, mitmproxy, mitmdump, Appium
 # TBD
+echo '-----------'
 
 
 # 7. installation of crawler framework
@@ -143,6 +147,7 @@ sudo pip3 install scrapy-splash
 
 # scrapy-redis
 sudo pip3 install scrapy-redis
+echo '-----------'
 
 
 # 8. installation of deployment library
